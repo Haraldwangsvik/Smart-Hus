@@ -285,7 +285,7 @@ public class Item {
     if (category < lowestCategoryValue || category > highestCategoryValue) {
       throw new IllegalArgumentException("Category must be a number between " + lowestCategoryValue + " and " + highestCategoryValue);
     } else {
-      this.category = category;de
+      this.category = category;
     }
   }
 
