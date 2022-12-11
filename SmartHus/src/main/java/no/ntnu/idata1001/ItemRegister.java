@@ -11,89 +11,107 @@ import java.util.Map;
  * @author Harald Wangsvik Fredriksen
  * @version 17-11-2022
  */
-  public class ItemRegister {
-  private HashMap<String, Item> itemList = new HashMap<>();
-  public Item item;
+public class ItemRegister {
+    private HashMap<String, Item> itemList = new HashMap<>();
 
-  /**
-   * Creates an instance of class ItemRegister
-   */
-  public ItemRegister() {
-  }
+    //The current item is the last item the user searched for.
+    private Item currentItem;
 
-  /**
-   * Adds an item to the storage.
-   * @param item the new item to add to the phone book
-   */
-  public void addItem(Item item) {
-    this.itemList.put(item.getItemId(), item);
-  }
-
-  /**
-   * Increases the storage volume for item chosen by the itemID
-   * by the chosen amount
-   *
-   * @param itemId
-   * @param amount
-   */
-  public void increaseStorageVolumeForItem(String itemId, int amount) {
-    itemList.get(itemId).setStorageVolume(itemList.get(itemId).getStorageVolume() + amount);
-  }
-
-  public void decreaseStorageVolumeForItem(String itemId, int amount) {
-    itemList.get(itemId).setStorageVolume(itemList.get(itemId).getStorageVolume() - amount);
-  }
-
-  public void removeItemFromStorage(Item item) {
-    itemList.remove(item.getItemId(), item);
-  }
-
-  public void setDiscountByPrice(Item item, int amount) {
-    item.setPrice(item.getPrice());
-  }
-
-  /**
-   * Searches for an item using a search value.
-   * if the search value matches an items item ID or its description
-   * we return that item.
-   * @param searchValue A string value that will be used to search for an item.
-   * @return foundItem
-   */
-  public Item findItem(String searchValue) {
-    //Create a boolean
-    Boolean found = false;
-    //Create an Item to return
-    Item foundItem = null;
-
-    Iterator<Item> it = getIterator();
-
-    while (it.hasNext() && !found) {
-      Item item = it.next();
-      if (searchValue.equals(item.getItemId()) ||
-          searchValue.equals(item.getDescription())) {
-        foundItem = item;
-        found = true;
-      }
+    /**
+     * Creates an instance of class ItemRegister
+     */
+    public ItemRegister() {
     }
-    return foundItem;
-  }
 
-  /**
-   * Prints out all the items in the Item register, to the console
-   */
-  public void printAllItemsInRegister() {
-    for (Map.Entry<String, Item> item : itemList.entrySet()) {
-      System.out.println(item.toString());
+    /**
+     * Adds an item to the storage.
+     *
+     * @param item the new item to add to the phone book
+     */
+    public void addItem(Item item) {
+        this.itemList.put(item.getItemId(), item);
     }
-  }
 
-  /**
-   * Returns an iterator making it possible to iterate over
-   * all the items in the register.
-   *
-   * @return an iterator to iterate over all items in the register
-   */
-  public Iterator<Item> getIterator() {
-    return this.itemList.iterator();
-  }
+    /**
+     * Increases the storage volume for item chosen by the itemID
+     * by the chosen amount
+     *
+     * @param amount
+     */
+    public void increaseStorageVolumeForItem(int amount) {
+        currentItem.setStorageVolume(currentItem.getStorageVolume() + amount);
+    }
+
+    /**
+     *
+     * @param amount
+     */
+    public void decreaseStorageVolumeForItem(int amount) {
+        currentItem.setStorageVolume(currentItem.getStorageVolume() - amount);
+    }
+
+    /**
+     * Remove this item from storage
+     * Unlike decrease storage volume this method removes the item completely
+     */
+    public void removeItemFromStorage() {
+        itemList.remove(currentItem.getItemId(), currentItem);
+    }
+
+    /**
+     * Change the price of the current item
+     *
+     * @param amount
+     */
+    public void setPrice(int amount) {
+        currentItem.setPrice(amount);
+    }
+
+    /**
+     * Set a discount by percentage for the current item
+     *
+     * @param percentage
+     */
+    public void setDiscount(int percentage) {
+        int discount = currentItem.getPrice() * ((1 - percentage) / 100);
+        setPrice(discount);
+    }
+
+    /**
+     * Change the description of current item
+     *
+     * @param description the new description that currentItem will hold.
+     */
+    public void changeDescription(String description) {
+        if (description == null) {
+            System.out.println("did not change this items description as you did not enter anything");
+        } else {
+            currentItem.setDescription(description);
+        }
+    }
+
+    /**
+     * Searches for an item using a searchValue that can be either itemID or description.
+     *
+     * @param searchValue used to search for an item
+     * @return foundItem
+     */
+    public Item findItem(String searchValue) {
+        for (Map.Entry<String, Item> item : itemList.entrySet()) {
+            if (item.getKey().equals(searchValue) || item.getValue().getDescription().equals(searchValue)) {
+                currentItem = item.getValue();
+            }
+        }
+        return currentItem;
+    }
+
+    /**
+     * Prints out all the items in the Item register, to the console
+     */
+    public void printAllItemsInRegister() {
+        for (Map.Entry<String, Item> item : itemList.entrySet()) {
+            System.out.println(item.getValue().toString());
+        }
+    }
+
 }
