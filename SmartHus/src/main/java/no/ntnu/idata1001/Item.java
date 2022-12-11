@@ -1,6 +1,7 @@
 package no.ntnu.idata1001;
 
 import java.util.HashMap;
+import jdk.jfr.Category;
 
 /**
  * The item class holds all the information of an item
@@ -24,9 +25,16 @@ public class Item {
 
   // amount of items currently in storage. This value will never be less than zero
   int storageVolume;
+
+  private Category category;    //The items category
+
   // A number representing the category of the item.
-  // These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
-  int category;
+  // These are the 4 categories: 1: floor laminates, 2: window, 3: door, 4: Lumber
+  enum Category {
+    FloorLaminates(1), Window(2), Door(3), Lumber(4);
+
+    Category(int categoryNumber) {}
+  }
   // A number that represents the lowest possible value that the category field currently can be
   private static final int lowestCategoryValue = 1;
   // A number that represents the highest possible value that the category field currently can be
@@ -46,12 +54,12 @@ public class Item {
    * @param color The color of the item
    * @param storageVolume amount of items currently in storage.
    *                      This value will never be less than zero
-   * @param category A number representing the category of the item.
-   *                 These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
+   * @param categoryNumber A number representing the category of the item.
+   *                       These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
    */
   public Item(String itemId, String description, int price, String brand,
               double weight, double length, double height, String color,
-              int storageVolume, int category) {
+              int storageVolume, int categoryNumber) {
     setItemId(itemId);
     setDescription(description);
     setPrice(price);
@@ -61,7 +69,7 @@ public class Item {
     setHeight(height);
     setColor(color);
     setStorageVolume(storageVolume);
-    setCategory(category);
+    setCategory(categoryNumber);
   }
 
   /**
@@ -270,7 +278,7 @@ public class Item {
    *
    * @return category of item
    */
-  public int getCategory() {
+  public Category getCategory() {
     return this.category;
   }
 
@@ -278,14 +286,19 @@ public class Item {
    * Set a number that represents the category
    * (1: floor laminates, 2: windows, 3: doors, 4: Lumber).
    *
-   * @param category A number representing the category of the item.
-   *                 These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
+   * @param categoryNumber A number representing the category of the item.
+   *                       These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
    */
-  public void setCategory(int category) {
-    if (category < lowestCategoryValue || category > highestCategoryValue) {
+  public void setCategory(int categoryNumber) {
+    if (categoryNumber < lowestCategoryValue || categoryNumber > highestCategoryValue) {
       throw new IllegalArgumentException("Category must be a number between " + lowestCategoryValue + " and " + highestCategoryValue);
     } else {
-      this.category = category;
+      switch(categoryNumber) {
+        case 1 -> this.category = Category.FloorLaminates;
+        case 2 -> this.category = Category.Window;
+        case 3 -> this.category = Category.Door;
+        case 4 -> this.category = Category.Lumber;
+      }
     }
   }
 

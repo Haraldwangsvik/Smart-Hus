@@ -1,7 +1,9 @@
 package no.ntnu.idata1001;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Represents the item register holding information about a storages items
@@ -10,14 +12,13 @@ import java.util.Iterator;
  * @version 17-11-2022
  */
   public class ItemRegister {
-  private ArrayList<Item> itemList;
+  private HashMap<String, Item> itemList = new HashMap<>();
   public Item item;
 
   /**
    * Creates an instance of class ItemRegister
    */
   public ItemRegister() {
-    itemList = new ArrayList<>();
   }
 
   /**
@@ -25,23 +26,30 @@ import java.util.Iterator;
    * @param item the new item to add to the phone book
    */
   public void addItem(Item item) {
-    this.itemList.add(item);
+    this.itemList.put(item.getItemId(), item);
   }
 
-  public void increaseStorageVolumeForItem() {
-
+  /**
+   * Increases the storage volume for item chosen by the itemID
+   * by the chosen amount
+   *
+   * @param itemId
+   * @param amount
+   */
+  public void increaseStorageVolumeForItem(String itemId, int amount) {
+    itemList.get(itemId).setStorageVolume(itemList.get(itemId).getStorageVolume() + amount);
   }
 
-  public void decreaseStorageVolumeForItem() {
-
+  public void decreaseStorageVolumeForItem(String itemId, int amount) {
+    itemList.get(itemId).setStorageVolume(itemList.get(itemId).getStorageVolume() - amount);
   }
 
   public void removeItemFromStorage(Item item) {
-    itemList.remove(item);
+    itemList.remove(item.getItemId(), item);
   }
 
   public void setDiscountByPrice(Item item, int amount) {
-
+    item.setPrice(item.getPrice());
   }
 
   /**
@@ -74,8 +82,7 @@ import java.util.Iterator;
    * Prints out all the items in the Item register, to the console
    */
   public void printAllItemsInRegister() {
-    for (Item item:
-         itemList) {
+    for (Map.Entry<String, Item> item : itemList.entrySet()) {
       System.out.println(item.toString());
     }
   }
