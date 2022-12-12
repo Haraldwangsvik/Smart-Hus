@@ -7,8 +7,8 @@ import jdk.jfr.Category;
  * The item class holds all the information of an item
  * and holds the get and set methods for the different values.
  *
- * @author Harald Wangsvik Fredriksen
- * @version 17-11-2022
+ * @author 10022
+ * @version 13-12-2022
  */
 public class Item {
   //A distinctive ID for one specified item in storage.

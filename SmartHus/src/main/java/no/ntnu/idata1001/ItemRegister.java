@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * Represents the item register holding information about a storages items.
  *
- * @author Harald Wangsvik Fredriksen
- * @version 17-11-2022
+ * @author 10022
+ * @version 13-12-2022
  */
 public class ItemRegister {
   private HashMap<String, Item> itemList = new HashMap<>();

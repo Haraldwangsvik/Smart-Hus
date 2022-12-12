@@ -6,8 +6,8 @@ import java.util.Scanner;
  * Represents the ItemRegister application, including the dialog with
  * the user (input and output).
  *
- * @author Harald W Fredriksen
- * @version 11.12.2022
+ * @author 10022
+ * @version 13.12.2022
  */
 public class WarehouseManagementApp {
 

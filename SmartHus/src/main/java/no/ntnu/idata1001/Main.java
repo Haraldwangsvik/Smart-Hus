@@ -3,6 +3,9 @@ package no.ntnu.idata1001;
 /**
  * The starting point of the application.
  * All this class does is run the application
+ *
+ * @author 10022
+ * @version 13.12.2022
  */
 public class Main {
 
