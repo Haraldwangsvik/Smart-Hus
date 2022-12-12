@@ -73,7 +73,8 @@ public class ItemRegister {
      * @param percentage
      */
     public void setDiscount(int percentage) {
-        int discount = currentItem.getPrice() * ((1 - percentage) / 100);
+        int remainder = 100 - percentage;
+        int discount = currentItem.getPrice() * (remainder)/ 100;
         setPrice(discount);
     }
 
@@ -83,7 +84,7 @@ public class ItemRegister {
      * @param description the new description that currentItem will hold.
      */
     public void changeDescription(String description) {
-        if (description == null || description == "") {
+        if (description == null || description.equals("")) {
             System.out.println("did not change this items description as you did not enter anything");
         } else {
             currentItem.setDescription(description);
@@ -97,20 +98,36 @@ public class ItemRegister {
      * @return foundItem
      */
     public Item searchForItem(String searchValue) {
-        for (Map.Entry<String, Item> item : itemList.entrySet()) {
-            if (item.getKey().equals(searchValue) || item.getValue().getDescription().equals(searchValue)) {
-                currentItem = item.getValue();
+
+        if ((searchValue == null) || (searchValue.isBlank())) {
+            return null;
+        }
+
+        Item foundItem = null;
+
+        boolean notFound = true;
+
+        Iterator<Item> it = getIterator();
+
+        while ((notFound) && it.hasNext()) {
+            Item item = it.next();
+
+            if (item.getItemId().equals(searchValue) || item.getDescription().equals(searchValue)) {
+                currentItem = item;
+                foundItem = item;
+                notFound = false;
             }
         }
-        return currentItem;
+        return foundItem;
     }
 
     /**
      * Prints out all the items in the Item register, to the console
      */
     public void printAllItemsInRegister() {
-        for (Map.Entry<String, Item> item : itemList.entrySet()) {
-            System.out.println(item.getValue().toString());
+
+        for (Item item : itemList.values()) {
+            System.out.println(item.toString());
         }
     }
 
@@ -134,6 +151,15 @@ public class ItemRegister {
         itemList.put(item2.getItemId(), item2);
         itemList.put(item3.getItemId(), item3);
         itemList.put(item4.getItemId(), item4);
+    }
+
+    /**
+     * Provides the iterator for itemList
+     *
+     * @return the iterator for itemList
+     */
+    public Iterator<Item> getIterator() {
+        return this.itemList.values().iterator();
     }
 
 }

@@ -68,6 +68,7 @@ public class WarehouseManagementApp {
 
                 case SEARCH_FOR_ITEM:
                     this.searchForItem();
+                    this.itemMenu();
                     break;
 
                 case EXIT:
@@ -84,7 +85,7 @@ public class WarehouseManagementApp {
     }
 
     public void itemMenu() {
-        boolean finished = true;
+        boolean finished = false;
 
         while (!finished) {
             int itemMenu = showItemMenu();
@@ -159,8 +160,7 @@ public class WarehouseManagementApp {
         System.out.println("Please enter the amount of discount you want to apply to this item: \n " +
             "(The discount is calculated in percentage, so if you would want 10% off write 10, 50% off write 50 and so on.)");
 
-        int percentage = userInput.nextInt();
-        userInput.nextInt();
+        int percentage = checkInteger();
 
         itemRegister.setDiscount(percentage);
 
@@ -181,8 +181,7 @@ public class WarehouseManagementApp {
             " is currently at: " + itemRegister.getCurrentItem().getPrice());
         System.out.println("Please enter the new price wanted to this item:");
 
-        int newPrice = userInput.nextInt();
-        userInput.nextInt();
+        int newPrice = checkInteger();
 
         itemRegister.setPrice(newPrice);
 
@@ -202,8 +201,7 @@ public class WarehouseManagementApp {
             " wares in storage for item " + itemRegister.getCurrentItem().getItemId());
         System.out.println("Please enter how many you would like to take out of storage:");
 
-        int takenOut = userInput.nextInt();
-        userInput.nextInt();
+        int takenOut = checkInteger();
 
         itemRegister.decreaseStorageVolumeForItem(takenOut);
 
@@ -223,8 +221,7 @@ public class WarehouseManagementApp {
             " wares in storage for item " + itemRegister.getCurrentItem().getItemId());
         System.out.println("Please enter how many you would like to add to storage:");
 
-        int addedAmount = userInput.nextInt();
-        userInput.nextInt();
+        int addedAmount = checkInteger();
 
         itemRegister.increaseStorageVolumeForItem(addedAmount);
 
@@ -243,14 +240,14 @@ public class WarehouseManagementApp {
 
         String itemId = userInput.nextLine();
 
+
         System.out.println("Description:");
 
         String description = userInput.nextLine();
 
         System.out.println("Price:");
 
-        int price = userInput.nextInt();
-        userInput.nextLine();
+        int price = checkInteger();
 
         System.out.println("Brand:");
 
@@ -258,15 +255,15 @@ public class WarehouseManagementApp {
 
         System.out.println("Weight:");
 
-        double weight = userInput.nextDouble();
+        double weight = checkDouble();
 
         System.out.println("Length:");
 
-        double length = userInput.nextDouble();
+        double length = checkDouble();
 
         System.out.println("Height:");
 
-        double height = userInput.nextDouble();
+        double height = checkDouble();
 
         System.out.println("Color:");
 
@@ -274,14 +271,13 @@ public class WarehouseManagementApp {
 
         System.out.println("How much of this item you want to add in the storage:");
 
-        int storageVolume = userInput.nextInt();
-        userInput.nextLine();
+        int storageVolume = checkInteger();
 
         System.out.println("There are four available category options: " +
             "1: Floor laminate, 2: Window, 3: Door, 4: Lumber");
         System.out.println("Please put in the number of the category for this item: ");
 
-        int categoryNumber = userInput.nextInt();
+        int categoryNumber = checkInteger();
 
         Item item = new Item(itemId, description, price, brand,
             weight, length, height, color,
@@ -311,9 +307,13 @@ public class WarehouseManagementApp {
 
         String searchValue = userInput.nextLine();
 
-        itemRegister.searchForItem(searchValue);
 
-        showItemMenu();
+        if (itemRegister.searchForItem(searchValue) == null) {
+            System.out.println("The item you searched for is not in the register.");
+        } else {
+            System.out.println("The item you searched for:");
+            System.out.println(itemRegister.getCurrentItem().toString());
+        }
     }
 
     /**
@@ -374,5 +374,50 @@ public class WarehouseManagementApp {
         }
 
         return selectedChoice;
+    }
+
+    /**
+     * Check that an entered integer actually is a number,
+     * and if not it won't allow the input.
+     * @return input when valid
+     */
+    private int checkInteger() {
+        Scanner userInput = new Scanner(System.in);
+        int input = 0;
+        boolean finished = false;
+
+        while (!finished) {
+            if (userInput.hasNextInt()) {
+                input = userInput.nextInt();
+                userInput.nextLine();
+                finished = true;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number");
+                userInput.next();
+            }
+        }
+        return input;
+    }
+
+    /**
+     * Check that an entered double actually is a number,
+     * and if not it won't allow the input.
+     * @return input when valid
+     */
+    private double checkDouble() {
+        Scanner userInput = new Scanner(System.in);
+        double input = 0;
+        boolean finished = false;
+
+        while (!finished) {
+            if (userInput.hasNextDouble()) {
+                input = userInput.nextDouble();
+                finished = true;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number");
+                userInput.next();
+            }
+        }
+        return input;
     }
 }
