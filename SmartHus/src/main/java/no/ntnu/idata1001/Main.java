@@ -1,23 +1,21 @@
 package no.ntnu.idata1001;
 
 /**
- * The starting point of the application
- *
+ * The starting point of the application.
  * All this class does is run the application
  */
 public class Main {
 
-    /**
-     * The main method of the program. This method should be the only
-     * method available to run.
-     *
-     * @param args a fixed size array of strings holding arguments provided
-     *             from the command line during the startup of the application.
-     */
-    public static void main(String[] args) {
-        WarehouseManagementApp itemRegisterApp = new WarehouseManagementApp();
+  /**
+   * The main method of the program. This method should be the only
+   * method available to run.
+   *
+   * @param args a fixed size array of strings holding arguments provided
+   *             from the command line during the startup of the application.
+   */
+  public static void main(String[] args) {
+    WarehouseManagementApp itemRegisterApp = new WarehouseManagementApp();
 
-        itemRegisterApp.init();
-        itemRegisterApp.start();
-    }
+    itemRegisterApp.start();
+  }
 }

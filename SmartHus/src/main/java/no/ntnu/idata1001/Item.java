@@ -35,8 +35,10 @@ public class Item {
 
     Category(int categoryNumber) {}
   }
+
   // A number that represents the lowest possible value that the category field currently can be
   private static final int lowestCategoryValue = 1;
+
   // A number that represents the highest possible value that the category field currently can be
   private static final int highestCategoryValue = 4;
 
@@ -55,7 +57,8 @@ public class Item {
    * @param storageVolume amount of items currently in storage.
    *                      This value will never be less than zero
    * @param categoryNumber A number representing the category of the item.
-   *                       These are the 4 categories: 1: floor laminate, 2: window, 3: door, 4: Lumber
+   *                       These are the 4 categories:
+   *                       1: floor laminate, 2: window, 3: door, 4: Lumber
    */
   public Item(String itemId, String description, int price, String brand,
               double weight, double length, double height, String color,
@@ -287,37 +290,41 @@ public class Item {
    * (1: floor laminates, 2: windows, 3: doors, 4: Lumber).
    *
    * @param categoryNumber A number representing the category of the item.
-   *                       These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
+   *                       These are the 4 categories:
+   *                       1: floor laminates, 2: windows, 3: doors, 4: Lumber
    */
   public void setCategory(int categoryNumber) {
     if (categoryNumber < lowestCategoryValue || categoryNumber > highestCategoryValue) {
-      throw new IllegalArgumentException("Category must be a number between " + lowestCategoryValue + " and " + highestCategoryValue);
+      throw new IllegalArgumentException("Category must be a number between "
+          + lowestCategoryValue + " and " + highestCategoryValue);
     } else {
-      switch(categoryNumber) {
+      switch (categoryNumber) {
         case 1 -> this.category = Category.FloorLaminates;
         case 2 -> this.category = Category.Window;
         case 3 -> this.category = Category.Door;
         case 4 -> this.category = Category.Lumber;
+        default -> this.category = null;
       }
     }
   }
 
   /**
-   * Return a formatted string that arranges the items values in a clear way
+   * Return a formatted string that arranges the items values in a clear way.
+   *
    * @return A String that holds all the items values
    */
   public String toString() {
-    return ("Item ID: " + getItemId() + "\n" +
-        "Description: " + getDescription() + "\n" +
-        "Price: " + getPrice() + "\n" +
-        "Brand: " + getBrand() + "\n" +
-        "Weight: " + getWeight() + "\n" +
-        "Length: " + getLength() + "\n" +
-        "Height: " + getHeight() + "\n" +
-        "Color: " + getColor() + "\n" +
-        "Storage volume: " + getStorageVolume() + "\n" +
-        "Category: " + getCategory() + "\n" +
-        "\n");
+    return ("Item ID: " + getItemId() + "\n"
+        + "Description: " + getDescription()
+        + "\n Price: " + getPrice()
+        + "\nBrand: " + getBrand()
+        + "\nWeight: " + getWeight()
+        + "\nLength: " + getLength()
+        + "\nHeight: " + getHeight()
+        + "\nColor: " + getColor()
+        + "\nStorage volume: " + getStorageVolume()
+        + "\nCategory: " + getCategory()
+        + "\n\n");
   }
 
 
