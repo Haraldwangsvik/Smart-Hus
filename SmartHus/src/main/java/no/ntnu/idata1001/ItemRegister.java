@@ -115,10 +115,25 @@ public class ItemRegister {
     }
 
     /**
-     * Return the current item
+     * Return the current item held
      */
     public Item getCurrentItem() {
         return currentItem;
+    }
+
+    /**
+     * Fills item register with some items to use for testing
+     */
+    public void fillItemRegister() {
+        Item item1 = new Item("111aaa", "The door that will make you forget about the room you were in, and make you focus on the room you currently are in", 2500, "Doorluxe", 100, 70, 210, "Black", 34, 3);
+        Item item2 = new Item("222bbb", "This Floor laminate gives you splinters for every tenth step you take", 150, "Barelyafloor AS", 20, 100, 20, "Brown", 340, 1);
+        Item item3 = new Item("333ccc", "Even if you are cheating, do not sneak in through this window", 4000, "Widow as", 80, 80, 80, "see through", 107, 2);
+        Item item4 = new Item("444ddd", "Manly lumber for manly men", 450, "Lumbro AS", 150, 200, 30, "Brown", 310, 4);
+
+        itemList.put(item1.getItemId(), item1);
+        itemList.put(item2.getItemId(), item2);
+        itemList.put(item3.getItemId(), item3);
+        itemList.put(item4.getItemId(), item4);
     }
 
 }
