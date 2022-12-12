@@ -28,8 +28,8 @@ public class ItemRegister {
      *
      * @param item the new item to add to the phone book
      */
-    public void addItem(Item item) {
-        this.itemList.put(item.getItemId(), item);
+    public void addItem(String itemId,Item item) {
+        this.itemList.put(itemId, item);
     }
 
     /**
@@ -83,7 +83,7 @@ public class ItemRegister {
      * @param description the new description that currentItem will hold.
      */
     public void changeDescription(String description) {
-        if (description == null) {
+        if (description == null || description == "") {
             System.out.println("did not change this items description as you did not enter anything");
         } else {
             currentItem.setDescription(description);
@@ -96,7 +96,7 @@ public class ItemRegister {
      * @param searchValue used to search for an item
      * @return foundItem
      */
-    public Item findItem(String searchValue) {
+    public Item searchForItem(String searchValue) {
         for (Map.Entry<String, Item> item : itemList.entrySet()) {
             if (item.getKey().equals(searchValue) || item.getValue().getDescription().equals(searchValue)) {
                 currentItem = item.getValue();
@@ -112,6 +112,13 @@ public class ItemRegister {
         for (Map.Entry<String, Item> item : itemList.entrySet()) {
             System.out.println(item.getValue().toString());
         }
+    }
+
+    /**
+     * Return the current item
+     */
+    public Item getCurrentItem() {
+        return currentItem;
     }
 
 }

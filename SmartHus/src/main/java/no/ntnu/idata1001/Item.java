@@ -55,7 +55,7 @@ public class Item {
    * @param storageVolume amount of items currently in storage.
    *                      This value will never be less than zero
    * @param categoryNumber A number representing the category of the item.
-   *                       These are the 4 categories: 1: floor laminates, 2: windows, 3: doors, 4: Lumber
+   *                       These are the 4 categories: 1: floor laminate, 2: window, 3: door, 4: Lumber
    */
   public Item(String itemId, String description, int price, String brand,
               double weight, double length, double height, String color,
