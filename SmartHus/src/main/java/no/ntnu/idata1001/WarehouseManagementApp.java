@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Harald W Fredriksen
  * @version 11.12.2022
  */
-public class ItemRegisterApp {
+public class WarehouseManagementApp {
 
     // Constants used for the menu choice.
     private static final int ADD_ITEM = 1;
@@ -32,8 +32,15 @@ public class ItemRegisterApp {
     /**
      * Creates an instance of the user interface.
      */
-    public ItemRegisterApp() {
+    public WarehouseManagementApp() {
         this.itemRegister = new ItemRegister();
+    }
+
+    /**
+     * Initializes the application
+     */
+    public void init() {
+        itemRegister.fillItemRegister();
     }
 
     /**
@@ -113,11 +120,18 @@ public class ItemRegisterApp {
         }
     }
 
+    /**
+     * Executes the "Delete item from storage" menu choice.
+     *
+     * Deletes an item fully from storage.
+     */
     private void deleteItem() {
         itemRegister.removeItemFromStorage();
     }
 
     /**
+     * Executes the "Change description" menu choice.
+     *
      * Changes the description of the currently chosen item by user input
      */
     private void changeDescription() {
@@ -134,6 +148,8 @@ public class ItemRegisterApp {
     }
 
     /**
+     * Executes the "Apply discount" menu choice.
+     *
      * Applies a discount to the currently chosen item
      * The discount should be entered in the wanted percentage taken off.
      */
@@ -152,6 +168,12 @@ public class ItemRegisterApp {
             " is now at: " + itemRegister.getCurrentItem().getPrice());
     }
 
+    /**
+     * Executes the "Change price" menu choice.
+     *
+     * Change the price of an item by asking for the wanted price,
+     * then changing the price into the wanted price.
+     */
     private void changePrice() {
         Scanner userInput = new Scanner(System.in);
 
@@ -168,6 +190,11 @@ public class ItemRegisterApp {
             " is now at: " + itemRegister.getCurrentItem().getPrice());
     }
 
+    /**
+     * Executes the "Decrease amount in storage" menu choice.
+     *
+     * Takes a wanted amount of an item out of storage.
+     */
     private void decreaseStorageVolume() {
         Scanner userInput = new Scanner(System.in);
 
@@ -184,6 +211,11 @@ public class ItemRegisterApp {
             " is now at: " + itemRegister.getCurrentItem().getStorageVolume());
     }
 
+    /**
+     * Execute the "Increase amount in storage" menu choice.
+     *
+     * Adds a wanted amount of an item into the storage.
+     */
     private void increaseStorageVolume() {
         Scanner userInput = new Scanner(System.in);
 
@@ -255,6 +287,8 @@ public class ItemRegisterApp {
             weight, length, height, color,
             storageVolume, categoryNumber);
         itemRegister.addItem(itemId, item);
+
+        System.out.println(item.toString());
     }
 
     /**
@@ -279,7 +313,7 @@ public class ItemRegisterApp {
 
         itemRegister.searchForItem(searchValue);
 
-
+        showItemMenu();
     }
 
     /**
@@ -341,6 +375,4 @@ public class ItemRegisterApp {
 
         return selectedChoice;
     }
-
-
 }
