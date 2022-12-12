@@ -351,7 +351,9 @@ public class WarehouseManagementApp {
    */
   private int showItemMenu() {
     int selectedChoice = 0;
-    System.out.println("\n*** This is the item menu for your chosen item ***\n");
+    System.out.println("\n*** You are currently in the item menu for: "
+        + itemRegister.getCurrentItem().getItemId()
+        + " , here are the actions you can do with this item ***\n");
 
     System.out.println("1. Increase amount in storage");
     System.out.println("2. Decrease amount in storage");
