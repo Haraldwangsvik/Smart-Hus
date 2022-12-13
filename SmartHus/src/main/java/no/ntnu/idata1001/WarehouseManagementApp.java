@@ -166,9 +166,9 @@ public class WarehouseManagementApp {
 
     itemRegister.setDiscount(percentage);
 
-    System.out.println("The price for " + itemRegister.getCurrentItem().getItemId()
-        + " is now at: " + itemRegister.getCurrentItem().getPrice());
+    this.printPrice();
   }
+
 
   /**
    * Executes the "Change price" menu choice.
@@ -186,6 +186,13 @@ public class WarehouseManagementApp {
 
     itemRegister.setPrice(newPrice);
 
+    this.printPrice();
+  }
+
+  /**
+   * Print out the current price for the item.
+   */
+  private void printPrice() {
     System.out.println("The price for " + itemRegister.getCurrentItem().getItemId()
         + " is now at: " + itemRegister.getCurrentItem().getPrice());
   }
@@ -197,16 +204,15 @@ public class WarehouseManagementApp {
   private void decreaseStorageVolume() {
     Scanner userInput = new Scanner(System.in);
 
-    System.out.println("You currently have " + itemRegister.getCurrentItem().getStorageVolume()
-        + " wares in storage for item " + itemRegister.getCurrentItem().getItemId());
+    this.printStorage();
+
     System.out.println("Please enter how many you would like to take out of storage:");
 
     int takenOut = checkInteger();
 
     itemRegister.decreaseStorageVolumeForItem(takenOut);
 
-    System.out.println("The new stock for " + itemRegister.getCurrentItem().getItemId()
-        + " is now at: " + itemRegister.getCurrentItem().getStorageVolume());
+    printStorage();
   }
 
   /**
@@ -216,15 +222,22 @@ public class WarehouseManagementApp {
   private void increaseStorageVolume() {
     Scanner userInput = new Scanner(System.in);
 
-    System.out.println("You currently have " + itemRegister.getCurrentItem().getStorageVolume()
-        + " wares in storage for item " + itemRegister.getCurrentItem().getItemId());
+    this.printStorage();
+
     System.out.println("Please enter how many you would like to add to storage:");
 
     int addedAmount = checkInteger();
 
     itemRegister.increaseStorageVolumeForItem(addedAmount);
 
-    System.out.println("The new stock for " + itemRegister.getCurrentItem().getItemId()
+    this.printStorage();
+  }
+
+  /**
+   * Print out the current storage for the item.
+   */
+  private void printStorage() {
+    System.out.println("The current stock for " + itemRegister.getCurrentItem().getItemId()
         + " is now at: " + itemRegister.getCurrentItem().getStorageVolume());
   }
 

@@ -17,8 +17,8 @@ public class Main {
    *             from the command line during the startup of the application.
    */
   public static void main(String[] args) {
-    WarehouseManagementApp itemRegisterApp = new WarehouseManagementApp();
+    WarehouseManagementApp warehouseManagementApp = new WarehouseManagementApp();
 
-    itemRegisterApp.start();
+    warehouseManagementApp.start();
   }
 }

@@ -24,7 +24,7 @@ public class Item {
   private String color;         //The color of the item
 
   // amount of items currently in storage. This value will never be less than zero
-  int storageVolume;
+  private int storageVolume;
 
   private Category category;    //The items category
 
